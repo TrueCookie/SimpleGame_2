@@ -13,16 +13,14 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem (parent){
     width = 41;
     height = 28;
 
-    score = new Score();
-    //scene()->addItem(score);
+    //score = new Score();
+    //scene()->addItem(score);//it's just because player item already added to scene
 
     currentFrame = 0;
     spriteImage = new QPixmap(":/new/prefix1/Sprites/bird.png");
     spriteTimer = new QTimer();
     connect(spriteTimer, &QTimer::timeout, this, &Player::nextFrame);
     spriteTimer->start(300);
-
-    //connect(bullet, &Bullet::collide; score; &Score::increase);
 }
 
 QRectF Player::boundingRect() const{
@@ -58,7 +56,7 @@ void Player::keyPressEvent(QKeyEvent *event){
     }else if(event->key() == Qt::Key_Space){
         Bullet *bullet = new Bullet();
         connect(bullet, &Bullet::collided, score, &Score::increase);
-        bullet->setPos(x()+20, y()+70);
+        //bullet->setPos(x()+20, y()+70);
         scene()->addItem(bullet);
     }
 }
@@ -66,4 +64,8 @@ void Player::keyPressEvent(QKeyEvent *event){
 void Player::spawn(){
     Enemy *enemy = new Enemy();
     scene()->addItem(enemy);
+}
+
+int Player::getPosX(){
+    return static_cast<int>(x());
 }

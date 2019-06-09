@@ -13,7 +13,7 @@ class Player :  public QObject, public QGraphicsPixmapItem{
 public:
     explicit Player(QGraphicsItem *parent = nullptr);
     void keyPressEvent(QKeyEvent *event);
-
+    int getPosX();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect() const;
 public slots:
@@ -21,7 +21,6 @@ public slots:
     void nextFrame();
 private:
     Score* score;
-
     int width, height;
     int currentFrame;
     QPixmap* spriteImage;

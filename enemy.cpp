@@ -8,13 +8,14 @@
 extern Game* game;
 
 Enemy::Enemy(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem (parent){
-    //set random position
-    setPos(rand()%700,-284);
-
     //drew the enemy
     setPixmap(QPixmap(":/sprites/Sprites/tube.png"));
-    setTransformOriginPoint(184, 185);
-    setRotation(180);
+    //setTransformOriginPoint(184, 185);
+    //setRotation(180);
+    setScale(0.5);
+
+    //set random position
+    setPos(680,350);
 
     //connect
     QTimer *timer = new QTimer();
@@ -25,10 +26,10 @@ Enemy::Enemy(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem (parent){
 
 void Enemy::move(){
     //move enemy down
-    setPos(x(), y()+5);
+    setPos(x()-5, y());
 
     //delete the enemy
-    if(pos().y() > 600){
+    if(pos().x() < -this->pixmap().width()){
         //decrease the health
         //game->health->decrease();
 

@@ -14,7 +14,7 @@ Game::Game(QWidget *parent){
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600);
 
-    setBackgroundBrush(QBrush(QImage(":/new/prefix1/Sprites/background.png")));
+    //setBackgroundBrush(QBrush(QImage(":/new/prefix1/Sprites/background.png")));
 
     QGraphicsView *view = new QGraphicsView(scene);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -22,15 +22,9 @@ Game::Game(QWidget *parent){
 
     view->show();
     view->setFixedSize(800, 600);
-
     //create an item to put into the scene
     player = new Player();
-    //setPixmap(QPixmap(":/sprites/Sprites/Player.png"));
-
-    //player->setPos(view->width()/2, view->height()-185);
-    player->setPos(64, 64);
-
-    //add the item to the scene
+    player->setPos(scene->height()/4, scene->height()/4);
     scene->addItem(player);
 
     //make rect focusible
@@ -38,18 +32,23 @@ Game::Game(QWidget *parent){
     player->setFocus();
 
     //create the score/health
-    //score = new Score();
-    //scene->addItem(score);
+    score = new Score();
+    scene->addItem(score);
+    connect(this, &Game::overcomingSignal, score, &Score::increase);//!!
 
     //spawn enemies
     QTimer * timer = new QTimer();
-    QObject::connect(timer, &QTimer::timeout, player, &Player::spawn);
+    connect(timer, &QTimer::timeout, player, &Player::spawn);
     timer->start(2000);
 
     //play background music
     /*QMediaPlayer *music = new QMediaPlayer();
     music->setMedia(QUrl("qrc:/sounds/BGMusic.mp3"));
     music->play();*/
+}
 
-    //show();
+void Game::overcoming(){
+    if(player->getPosX() > 50/*firstTubeCouple*/){
+        emit overcomingSignal();
+    }
 }
