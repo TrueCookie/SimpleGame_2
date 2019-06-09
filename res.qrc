@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>BGMusic.mp3</file>
+        <file>Gun.mp3</file>
+    </qresource>
+    <qresource prefix="/sprites">
+        <file>Sprites/Bullet.png</file>
+        <file>Sprites/Enemy.png</file>
+        <file>Sprites/Player.png</file>
+        <file>Sprites/space.png</file>
+        <file>Sprites/bird.png</file>
+        <file>Sprites/tube.png</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>space.png</file>
+        <file>Sprites/background.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix1">
+        <file>Sprites/background.png</file>
+        <file>Sprites/bird.png</file>
+        <file>Sprites/tube.png</file>
+    </qresource>
+</RCC>
