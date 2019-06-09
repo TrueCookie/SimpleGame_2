@@ -27,7 +27,8 @@ Game::Game(QWidget *parent){
     player = new Player();
     //setPixmap(QPixmap(":/sprites/Sprites/Player.png"));
 
-    player->setPos(view->width()/2, view->height()-185);
+    //player->setPos(view->width()/2, view->height()-185);
+    player->setPos(64, 64);
 
     //add the item to the scene
     scene->addItem(player);
@@ -37,12 +38,12 @@ Game::Game(QWidget *parent){
     player->setFocus();
 
     //create the score/health
-    score = new Score();
-    scene->addItem(score);
+    //score = new Score();
+    //scene->addItem(score);
 
     //spawn enemies
     QTimer * timer = new QTimer();
-    QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
+    QObject::connect(timer, &QTimer::timeout, player, &Player::spawn);
     timer->start(2000);
 
     //play background music

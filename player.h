@@ -1,7 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "sprite.h"
+#include "score.h"
+//#include "sprite.h"
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QMediaPlayer>
@@ -10,12 +11,21 @@
 class Player :  public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
-    Player(QGraphicsItem *parent = nullptr);
+    explicit Player(QGraphicsItem *parent = nullptr);
     void keyPressEvent(QKeyEvent *event);
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const;
 public slots:
     void spawn();
+    void nextFrame();
 private:
-    Sprite* sprite;
+    Score* score;
+
+    int width, height;
+    int currentFrame;
+    QPixmap* spriteImage;
+    QTimer* spriteTimer;
 };
 
 #endif // PLAYER_H

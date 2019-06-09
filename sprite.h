@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include <QTimer>
-#include <QPixmap>//
-#include <QPainter>//
+#include <QPixmap>
+#include <QPainter>
 
 class Sprite: public QObject, public QGraphicsItem{
     Q_OBJECT

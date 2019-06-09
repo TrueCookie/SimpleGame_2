@@ -2,20 +2,18 @@
 #include <QFont>
 
 Score::Score(QGraphicsItem *parent) : QGraphicsTextItem(parent){
-     //initialize the score to 0
-    score = 0;
+    scoreNum = 0;
 
-    //draw thetext
-    setPlainText(QString("Score: ") + QString::number(score)); //Score: 0
+    setPlainText(QString("Score: ") + QString::number(scoreNum));
     setDefaultTextColor(Qt::blue);
     setFont(QFont("times", 16));
 }
 
 void Score::increase(){
-    score++;
-    setPlainText(QString("Score: ") + QString::number(score)); //Score: *+1*
+    scoreNum++;
+    setPlainText(QString("Score: ") + QString::number(scoreNum));
 }
 
 int Score::getScore(){
-    return score;
+    return scoreNum;
 }
