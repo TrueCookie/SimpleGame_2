@@ -12,7 +12,7 @@
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem (parent){
     width = 41;
     height = 28;
-
+    //physX
     velocity0 = 1500;
     sina = 0.866;
     g = 9.8*velocity0;
@@ -29,10 +29,9 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem (parent){
 
     flightTime = new QTime();
     flightTime->start();
-    /*fallTimer = new QTimer();
-    connect(fallTimer, &QTimer::timeout, this, &Player::flight);*/
     jumpPoint = 0.0;
-    delta = 0.0;
+    
+    connect(this, &Player::collided, score, &Score::increase);
 }
 
 QRectF Player::boundingRect() const{
@@ -55,10 +54,6 @@ void Player::keyPressEvent(QKeyEvent *event){
     qDebug() << "key is pressed";
     if(event->key() == Qt::Key_Space){
         jump();
-        /*Bullet *bullet = new Bullet();
-        connect(bullet, &Bullet::collided, score, &Score::increase);
-        //bullet->setPos(x()+20, y()+70);
-        scene()->addItem(bullet);*/
     }
 }
 

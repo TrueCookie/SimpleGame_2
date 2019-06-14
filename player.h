@@ -33,6 +33,12 @@ private:
     QTime* flightTime;
     double jumpPoint;
     double delta;
+
+    double velocity0;
+    double sina;
+    double time;
+    double g;
+    double heightFlight;
 };
 
 #endif // PLAYER_H
