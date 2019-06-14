@@ -13,14 +13,22 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem (parent){
     width = 41;
     height = 28;
 
-    //score = new Score();
-    //scene()->addItem(score);//it's just because player item already added to scene
-
     currentFrame = 0;
     spriteImage = new QPixmap(":/new/prefix1/Sprites/bird.png");
     spriteTimer = new QTimer();
     connect(spriteTimer, &QTimer::timeout, this, &Player::nextFrame);
-    spriteTimer->start(300);
+    spriteTimer->start(50);
+
+    gameTimer = new QTimer();
+    connect(gameTimer, &QTimer::timeout, this, &Player::flight);
+    gameTimer->start(10);
+
+    flightTime = new QTime();
+    flightTime->start();
+    /*fallTimer = new QTimer();
+    connect(fallTimer, &QTimer::timeout, this, &Player::flight);*/
+    jumpPoint = 0.0;
+    delta = 0.0;
 }
 
 QRectF Player::boundingRect() const{
@@ -41,23 +49,12 @@ void Player::nextFrame(){
 
 void Player::keyPressEvent(QKeyEvent *event){
     qDebug() << "key is pressed";
-    if(event->key() == Qt::Key_Left){
-        if(pos().x() > 0){
-            setPos(x()-10, y());
-        }
-    }else if(event->key() == Qt::Key_Right){
-        if(pos().x()+100 < scene()->width()){
-            setPos(x()+10, y());
-        }
-    }else if(event->key() == Qt::Key_Up){
-        setPos(x(), y()-10);
-    }else if(event->key() == Qt::Key_Down){
-        setPos(x(), y()+10);
-    }else if(event->key() == Qt::Key_Space){
-        Bullet *bullet = new Bullet();
+    if(event->key() == Qt::Key_Space){
+        jump();
+        /*Bullet *bullet = new Bullet();
         connect(bullet, &Bullet::collided, score, &Score::increase);
         //bullet->setPos(x()+20, y()+70);
-        scene()->addItem(bullet);
+        scene()->addItem(bullet);*/
     }
 }
 
@@ -65,6 +62,29 @@ void Player::spawn(){
     Enemy *enemy = new Enemy();
     scene()->addItem(enemy);
 }
+
+void Player::flight(){
+    delta += flightTime->elapsed()/100;
+    if(delta < jumpPoint){
+        setPos(x(), jumpPoint+delta*delta/1000);
+    }else{
+        setPos(x(), jumpPoint+delta*delta/400000);
+    }
+}
+
+void Player::jump(){
+    jumpPoint = y();
+    delta = jumpPoint-256;
+    //delta = flightTime->currentTime().msec() - delta;
+    flightTime->restart();
+    /*delta += flightTime->elapsed();
+    if(delta < 0){
+        setPos(x(), y()+delta*delta);
+    }else{
+        setPos(x(), y()+delta*delta/4);
+    }*/
+}
+
 
 int Player::getPosX(){
     return static_cast<int>(x());

@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QMediaPlayer>
 #include <QTimer>
+#include <QTime>
 
 class Player :  public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
@@ -19,12 +20,19 @@ public:
 public slots:
     void spawn();
     void nextFrame();
+    void flight();
+    void jump();
 private:
     Score* score;
     int width, height;
     int currentFrame;
     QPixmap* spriteImage;
     QTimer* spriteTimer;
+    QTimer* gameTimer;
+    //QTimer* fallTimer;
+    QTime* flightTime;
+    double jumpPoint;
+    double delta;
 };
 
 #endif // PLAYER_H

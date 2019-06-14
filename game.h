@@ -6,6 +6,7 @@
 #include "score.h"
 
 class Game : public QGraphicsView{
+    Q_OBJECT
 public:
     Game(QWidget *parent = nullptr);
     void overcoming();
